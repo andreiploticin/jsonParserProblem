@@ -81,13 +81,11 @@ std::string JsonParser::parseString()
     std::string ret;
 
     char ch = getChar();
-    std::cout << ch;
     while(ch!='"')
     {
         ret.push_back(ch);
         ch = getChar();
     }
-    std::cout << std::endl;
     return ret;  // eat ending "
 }
 
