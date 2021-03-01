@@ -24,9 +24,14 @@ bool JsonValue::isArray() const     {return m_valueType == ARRAY;}
 const std::string                       &JsonValue::stringValue() const  { return m_ptr->strinValue(); }
 const std::map<std::string, JsonValue>  &JsonValue::objectValue() const  { return m_ptr->objectValue(); }
 const std::vector<JsonValue>            &JsonValue::arrayValue() const   { return m_ptr->arrayValue(); }
-const JsonValue                         &JsonValue::operator[](size_t index) const {return m_ptr->arrayValue()[index];}
+const JsonValue                         &JsonValue::operator[](size_t index) const
+{
+    return (isArray() ? m_ptr->arrayValue()[index] : getEmpties().emptyValue);
+}
 const JsonValue                         &JsonValue::operator[](const std::string& name) const
 {
+    if(!isObject()) return getEmpties().emptyValue;
+
     auto it = m_ptr->objectValue().find(name);
     return (it==m_ptr->objectValue().cend()) ? getEmpties().emptyValue : (*it).second;
 }

@@ -27,12 +27,12 @@ JsonValue JsonParser::parse()
                 while(true)    // get pairs: {name, value}
                 {
                     if(ch!='"')
-                        throw(std::logic_error("miss opening '\"'"));
+                        throw(std::string("miss opening '\"'"));
 
                     auto name = parseString();
 
                     if(getToken()!=':')
-                        throw(std::logic_error("miss ':'"));
+                        throw(std::string("miss ':'"));
 
                     map.insert({std::move(name), parse()});
 
@@ -40,7 +40,7 @@ JsonValue JsonParser::parse()
                     if(ch=='}')
                         break;
                     if(ch!=',')
-                        throw(std::logic_error("miss ',' in object"));
+                        throw(std::string("miss ',' in object"));
                     ch = getToken();
                 }
                 return map;
@@ -61,16 +61,16 @@ JsonValue JsonParser::parse()
                     if(ch==']')
                         break;
                     if(ch!=',')
-                        throw(std::logic_error("miss ',' in array"));
+                        throw(std::string("miss ',' in array"));
                     ch = getToken();
                 }
                 return vec;
             }
         }
     }
-    catch (std::exception &e)
+    catch (std::string &e)
     {
-//        std::cout << e.what() << std::endl;
+        std::cout << e;
         errorOccure = true;
         return getEmpties().emptyValue;
     }
@@ -107,7 +107,7 @@ wchar_t JsonParser::getChar()
 {
     wchar_t ch = is.get();
     if(is.eof())
-        throw std::out_of_range("unexpected eof");
+        throw std::string("unexpected eof");
     return ch;
 }
 
