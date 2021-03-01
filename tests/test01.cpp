@@ -106,7 +106,6 @@ TEST(JsonTests, ReadFromFile)
     ASSERT_TRUE(ifs.is_open());
     JsonParser parser(ifs);
     auto result = parser.parse();
-    print(std::cout, result);
     ASSERT_FALSE(parser.isError());
 }
 

@@ -26,9 +26,9 @@ public:
     JsonValue(object &&value);
     JsonValue(const array &value);
     JsonValue(array &&value);
-    inline bool isString() const;
-    inline bool isObject() const;
-    inline bool isArray() const;
+    bool isString() const;
+    bool isObject() const;
+    bool isArray() const;
     std::string stringValue() const;
     object objectValue() const;
     array arrayValue() const;
@@ -49,8 +49,6 @@ protected:
     virtual ~JsonBaseValue() {}
 };
 
-
-void print(std::ostream &, const JsonValue&, size_t tabs=0);
 
 struct staticValuesStruct
 {
