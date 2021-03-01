@@ -21,3 +21,5 @@ JsonParser parser1("{\"name1\":[\"a1\", \"a2\", {\"name2\":\"value1\", \"name3\"
 std::cout << parser1.parse()["name1"][2]["name3"].stringValue();
 ```
 В **example** показан пример разбора строки и пользовательского ввода с последующим выводом результата.
+
+В тесте `(JsonTests, ReadFromFile)` разбирается файл `test.json`
