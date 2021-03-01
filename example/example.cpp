@@ -46,8 +46,7 @@ void print(std::ostream &os, const JsonValue &value, size_t tabs=0)
 
 int main()
 {
-
-    JsonParser parser1("{\"name1\":[\"a1\", \"a2\", {\"name2\":\"value1\", \"name3\":\"value2\"}]}");
+    JsonParser parser1("{\"name1\":\f\a\b\t\n\v\r\r\n[\"a1\", \"a2\", {\"name2\":\"value1\", \"name3\":\"value2\"}]}");
     print(std::cout, parser1.parse());
     std::cout << std::endl;
 

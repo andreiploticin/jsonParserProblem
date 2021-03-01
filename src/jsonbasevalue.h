@@ -9,9 +9,8 @@
 class JsonValue;
 class JsonBaseValue;
 
-using object = std::map<std::string, JsonValue>;
-using array = std::vector<JsonValue>;
-
+// Класс непосредственных элементов упрощённой грамматики JSON
+// с которыми может работать пользователь
 class JsonValue
 {
 public:
@@ -22,16 +21,16 @@ public:
 
     JsonValue(const std::string &value);
     JsonValue(std::string &&value);
-    JsonValue(const object &value);
-    JsonValue(object &&value);
-    JsonValue(const array &value);
-    JsonValue(array &&value);
+    JsonValue(const std::map<std::string, JsonValue> &value);
+    JsonValue(std::map<std::string, JsonValue> &&value);
+    JsonValue(const std::vector<JsonValue> &value);
+    JsonValue(std::vector<JsonValue> &&value);
     bool isString() const;
     bool isObject() const;
     bool isArray() const;
-    std::string stringValue() const;
-    object objectValue() const;
-    array arrayValue() const;
+    const std::string stringValue() const;
+    const std::map<std::string, JsonValue> objectValue() const;
+    const std::vector<JsonValue> arrayValue() const;
     inline ValueType getType() const {return m_valueType;}
 
 private:
@@ -39,27 +38,28 @@ private:
     ValueType m_valueType = NONE;
 };
 
+//Базовый класс иерархии возможных значений = JSON value
 class JsonBaseValue
 {
     friend class JsonValue;
 protected:
     virtual const std::string& strinValue() const;
-    virtual const object& objectValue() const;
-    virtual const array& arrayValue() const;
+    virtual const std::map<std::string, JsonValue>& objectValue() const;
+    virtual const std::vector<JsonValue>& arrayValue() const;
     virtual ~JsonBaseValue() {}
 };
 
-
-struct staticValuesStruct
+struct EmptyValues
 {
     std::string stringValue;
-    object objectValue;
-    array arrayValue;
+    std::map<std::string, JsonValue> objectValue;
+    std::vector<JsonValue> arrayValue;
     JsonValue emptyValue;
 };
 
-extern staticValuesStruct svs;
+extern EmptyValues emptyValues;
 
+// Класс строк JSON string
 class JsonStringValue final : public JsonBaseValue
 {
 public:
@@ -69,22 +69,24 @@ private:
     std::string m_value;
 };
 
+// Класс объектов (асс. массивов) JSON object
 class JsonObjectValue final : public JsonBaseValue
 {
 public:
-    JsonObjectValue(const object &value) : m_value(value) {}
-    virtual const object& objectValue() const override;
+    JsonObjectValue(const std::map<std::string, JsonValue> &value) : m_value(value) {}
+    virtual const std::map<std::string, JsonValue>& objectValue() const override;
 private:
-    object m_value;
+    std::map<std::string, JsonValue> m_value;
 };
 
+// Класс массивов JSON array
 class JsonArrayValue final : public JsonBaseValue
 {
 public:
-    JsonArrayValue(const array &value) : m_value(value) {}
-    virtual const array& arrayValue() const override;
+    JsonArrayValue(const std::vector<JsonValue> &value) : m_value(value) {}
+    virtual const std::vector<JsonValue>& arrayValue() const override;
 private:
-    array m_value;
+    std::vector<JsonValue> m_value;
 };
 
 

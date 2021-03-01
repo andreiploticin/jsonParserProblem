@@ -8,21 +8,23 @@
 class JsonParser final
 {
 public:
+    // Констркутор для потока (файл и пользовательский ввод)
     JsonParser(std::istream &is);
+    // Конструктор для строки
     JsonParser(const std::string &str);
+    // Выполнить разбор
     JsonValue parse();
-    void eatSpaces();
+    // Проверка ошибок при разборе
     bool isError() const {return errorOccure;}
 
 private:
     std::string parseString();
-
-    std::shared_ptr<JsonBaseValue> result;
+    void eatSpaces();
     wchar_t getToken();
     wchar_t getChar();
+
     std::istream &is;
     std::istringstream iss;
-    unsigned p = 0;
     bool errorOccure = false;
 
 };

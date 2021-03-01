@@ -70,9 +70,9 @@ JsonValue JsonParser::parse()
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+//        std::cout << e.what() << std::endl;
         errorOccure = true;
-        return svs.emptyValue;
+        return emptyValues.emptyValue;
     }
 }
 
@@ -86,13 +86,13 @@ std::string JsonParser::parseString()
         ret.push_back(ch);
         ch = getChar();
     }
-    return ret;  // eat ending "
+    return ret;
 }
 
 void JsonParser::eatSpaces()
 {
     auto ch = getChar();
-    while(ch==' ' || ch=='\n' || ch=='\t')
+    while(ch==' ' || ch=='\t' || ch=='\n' || ch=='\r')
         ch = getChar();
     is.unget();
 }
