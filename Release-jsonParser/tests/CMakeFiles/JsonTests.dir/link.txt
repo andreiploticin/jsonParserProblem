@@ -1,3 +1,0 @@
-C:\dev\CMake\bin\cmake.exe -E rm -f CMakeFiles\JsonTests.dir/objects.a
-C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\ar.exe cr CMakeFiles\JsonTests.dir/objects.a @CMakeFiles\JsonTests.dir\objects1.rsp
-C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\g++.exe -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\JsonTests.dir/objects.a -Wl,--no-whole-archive -o JsonTests.exe -Wl,--out-implib,libJsonTests.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\JsonTests.dir\linklibs.rsp

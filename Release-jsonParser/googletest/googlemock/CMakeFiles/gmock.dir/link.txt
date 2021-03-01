@@ -1,2 +1,0 @@
-C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\ar.exe qc ..\..\lib\libgmock.a CMakeFiles/gmock.dir/src/gmock-all.cc.obj
-C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\ranlib.exe ..\..\lib\libgmock.a
