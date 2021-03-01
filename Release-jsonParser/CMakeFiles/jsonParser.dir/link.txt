@@ -1,0 +1,2 @@
+C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\ar.exe qc libjsonParser.a CMakeFiles/jsonParser.dir/src/jsonbasevalue.cpp.obj CMakeFiles/jsonParser.dir/src/jsonparser.cpp.obj
+C:\Qt\Qt5.14.2\Tools\mingw730_32\bin\ranlib.exe libjsonParser.a

@@ -26,6 +26,8 @@ std::string JsonValue::stringValue() const  { return m_ptr->strinValue(); }
 object      JsonValue::objectValue() const  { return m_ptr->objectValue(); }
 array       JsonValue::arrayValue() const   { return m_ptr->arrayValue(); }
 
+
+
 void print(std::ostream &os, const JsonValue &value, size_t tabs)
 {
     if(value.isString())
