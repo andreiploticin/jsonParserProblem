@@ -28,15 +28,31 @@ public:
     bool isString() const;
     bool isObject() const;
     bool isArray() const;
-    const std::string stringValue() const;
-    const std::map<std::string, JsonValue> objectValue() const;
-    const std::vector<JsonValue> arrayValue() const;
+    const std::string& stringValue() const;
+    const std::map<std::string, JsonValue>& objectValue() const;
+    const std::vector<JsonValue>& arrayValue() const;
+    const JsonValue& operator[](size_t index) const;
+    const JsonValue& operator[](const std::string& name) const;
     inline ValueType getType() const {return m_valueType;}
 
 private:
     std::shared_ptr<JsonBaseValue> m_ptr;
     ValueType m_valueType = NONE;
 };
+
+struct EmptyValues
+{
+    std::string stringValue;
+    std::map<std::string, JsonValue> objectValue;
+    std::vector<JsonValue> arrayValue;
+    JsonValue emptyValue;
+};
+
+static const EmptyValues& getEmpties()
+{
+    static const EmptyValues e;
+    return e;
+}
 
 //Базовый класс иерархии возможных значений = JSON value
 class JsonBaseValue
@@ -48,16 +64,6 @@ protected:
     virtual const std::vector<JsonValue>& arrayValue() const;
     virtual ~JsonBaseValue() {}
 };
-
-struct EmptyValues
-{
-    std::string stringValue;
-    std::map<std::string, JsonValue> objectValue;
-    std::vector<JsonValue> arrayValue;
-    JsonValue emptyValue;
-};
-
-extern EmptyValues emptyValues;
 
 // Класс строк JSON string
 class JsonStringValue final : public JsonBaseValue

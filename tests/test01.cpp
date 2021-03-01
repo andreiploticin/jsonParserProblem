@@ -100,6 +100,16 @@ TEST(JsonTests, Empties)
 }
 
 
+
+TEST(JsonTests, IndexOperatorOfArrayValue)
+{
+    std::string str = "[\"name1\", \"name2\", \"name3\"]";
+    JsonParser parser(str);
+    auto result = parser.parse();
+    ASSERT_EQ(result[2].stringValue(), "name3");
+}
+
+
 TEST(JsonTests, ReadFromFile)
 {
     std::ifstream ifs("test.json", std::ios::in);

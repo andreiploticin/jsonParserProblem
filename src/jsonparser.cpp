@@ -72,7 +72,7 @@ JsonValue JsonParser::parse()
     {
 //        std::cout << e.what() << std::endl;
         errorOccure = true;
-        return emptyValues.emptyValue;
+        return getEmpties().emptyValue;
     }
 }
 
