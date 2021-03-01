@@ -2,7 +2,7 @@
 #include "../src/jsonparser.h"
 #include <fstream>
 
-TEST(JsonTests, Empty)
+TEST(ParserTests, Empty)
 {
     JsonParser parser("");
     auto result = parser.parse();
@@ -10,7 +10,7 @@ TEST(JsonTests, Empty)
     ASSERT_TRUE(parser.isError());
 }
 
-TEST(JsonTests, EmptyString)
+TEST(ParserTests, EmptyString)
 {
     JsonParser parser("\"\"");
     auto result = parser.parse();
@@ -19,7 +19,15 @@ TEST(JsonTests, EmptyString)
     ASSERT_FALSE(parser.isError());
 }
 
-TEST(JsonTests, EmptyObject)
+TEST(ParserTests, ArrayWithEmptyString)
+{
+    JsonParser parser("[\"\"]");
+    auto result = parser.parse();
+    ASSERT_EQ(result[0].stringValue(), "");
+    ASSERT_FALSE(parser.isError());
+}
+
+TEST(ParserTests, EmptyObject)
 {
     JsonParser parser("{}");
     auto result = parser.parse();
@@ -27,7 +35,7 @@ TEST(JsonTests, EmptyObject)
     ASSERT_FALSE(parser.isError());
 }
 
-TEST(JsonTests, OneRecord)
+TEST(ParserTests, OneRecord)
 {
     std::string str = "{\"name\":\"value\"}";
     JsonParser parser(str);
@@ -40,7 +48,7 @@ TEST(JsonTests, OneRecord)
     ASSERT_FALSE(parser.isError());
 }
 
-TEST(JsonTests, RecordWithoutValue)
+TEST(ParserTests, RecordWithoutValue)
 {
     std::string str = "{\"name\":}";
     JsonParser parser(str);
@@ -48,7 +56,7 @@ TEST(JsonTests, RecordWithoutValue)
     ASSERT_TRUE(parser.isError());
 }
 
-TEST(JsonTests, proposedValue)
+TEST(ParserTests, proposedValue)
 {
     std::string str =
             "{"
@@ -69,7 +77,7 @@ TEST(JsonTests, proposedValue)
     ASSERT_TRUE(parser.isError());
 }
 
-TEST(JsonTests, proposedValueWithoutErrors)
+TEST(ParserTests, ProposedValueWithoutErrors)
 {
     std::string str =
             "{"
@@ -91,7 +99,7 @@ TEST(JsonTests, proposedValueWithoutErrors)
 }
 
 
-TEST(JsonTests, Empties)
+TEST(ParserTests, Empties)
 {
     std::string str = "[[[[{},{}],{},{},[[[]]]]]]";
     JsonParser parser(str);
@@ -101,7 +109,7 @@ TEST(JsonTests, Empties)
 
 
 
-TEST(JsonTests, IndexOperatorOfArrayValue)
+TEST(ParserTests, IndexOperatorOfArrayValue)
 {
     std::string str = "[\"name1\", \"name2\", \"name3\"]";
     JsonParser parser(str);
@@ -110,7 +118,7 @@ TEST(JsonTests, IndexOperatorOfArrayValue)
 }
 
 
-TEST(JsonTests, ReadFromFile)
+TEST(ParserTests, ReadFromFile)
 {
     std::ifstream ifs("test.json", std::ios::in);
     ASSERT_TRUE(ifs.is_open());

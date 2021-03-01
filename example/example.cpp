@@ -46,14 +46,16 @@ void print(std::ostream &os, const JsonValue &value, size_t tabs=0)
 
 int main()
 {
-    JsonParser parser1("{\"name1\":\f\a\b\t\n\v\r\r\n[\"a1\", \"a2\", {\"name2\":\"value1\", \"name3\":\"value2\"}]}");
+    JsonParser parser1("{\"name\\1\":\t\r\n[\"a1\", \"a2\", {\"name2\":\"value1'\", \"name3\":\"value2\"}]}");
     auto result = parser1.parse();
     print(std::cout, result); std::cout << std::endl;
 
-    std::cout << result["name1"][2]["name3"].stringValue();
+    std::cout << result["name1"][2]["name3"].stringValue() << std::endl;
 
     JsonParser parser2(std::cin);
     print(std::cout, parser2.parse());
     std::cout << std::endl;
+
+    char c; std::cin >> c;
     return 0;
 }

@@ -1,9 +1,10 @@
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
-#include <iostream>
-#include "jsonbasevalue.h"
+#ifndef JsonParser_H
+#define JsonParser_H
 #include <memory>
+#include <iostream>
 #include <sstream>
+
+#include "jsonbasevalue.h"
 
 class JsonParser final
 {
@@ -14,7 +15,7 @@ public:
     JsonParser(const std::string &str);
     // Выполнить разбор
     JsonValue parse();
-    // Проверка ошибок при разборе
+    // Наличие ошибок при разборе
     bool isError() const {return errorOccure;}
 
 private:
@@ -29,4 +30,4 @@ private:
 
 };
 
-#endif // JSONPARSER_H
+#endif // JsonParser_H

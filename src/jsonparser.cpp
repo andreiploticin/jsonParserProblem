@@ -1,6 +1,4 @@
 #include "jsonparser.h"
-#include <iostream>
-#include <stdexcept>
 
 JsonParser::JsonParser(std::istream &value) : is(value) {}
 
@@ -20,27 +18,27 @@ JsonValue JsonParser::parse()
             if(t=='{')  // get object map
             {
                 std::map<std::string, JsonValue> map;   // ~object
-                auto ch = getToken(); // " : }
+                auto ch = getToken(); // one of: " : }
                 if(ch=='}')
                     return map;
 
-                while(true)    // get pairs: {name, value}
+                while(true)    // get pairs  name:value,
                 {
                     if(ch!='"')
-                        throw(std::string("miss opening '\"'"));
+                        throw(std::string("missing opening '\"'"));
 
                     auto name = parseString();
 
                     if(getToken()!=':')
-                        throw(std::string("miss ':'"));
+                        throw(std::string("missing ':'"));
 
-                    map.insert({std::move(name), parse()});
+                    map.insert({name, parse()});
 
-                    auto ch = getToken(); // , }
+                    auto ch = getToken(); // one of:  , }
                     if(ch=='}')
                         break;
                     if(ch!=',')
-                        throw(std::string("miss ',' in object"));
+                        throw(std::string("missing ',' in object"));
                     ch = getToken();
                 }
                 return map;
@@ -52,6 +50,7 @@ JsonValue JsonParser::parse()
                 auto ch = getToken();
                 if(ch==']')
                     return vec;
+
                 while(true)
                 {
                     is.unget();
@@ -70,7 +69,7 @@ JsonValue JsonParser::parse()
     }
     catch (std::string &e)
     {
-        std::cout << e;
+        std::cout << e << std::endl;
         errorOccure = true;
         return getEmpties().emptyValue;
     }

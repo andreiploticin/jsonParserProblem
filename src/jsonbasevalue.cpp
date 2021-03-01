@@ -28,7 +28,7 @@ const JsonValue                         &JsonValue::operator[](size_t index) con
 {
     return (isArray() ? m_ptr->arrayValue()[index] : getEmpties().emptyValue);
 }
-const JsonValue                         &JsonValue::operator[](const std::string& name) const
+const JsonValue                         &JsonValue::operator[](const std::string& name) const       // map::operator[] non const
 {
     if(!isObject()) return getEmpties().emptyValue;
 

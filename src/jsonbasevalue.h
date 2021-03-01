@@ -1,5 +1,5 @@
-#ifndef JsonAbstractValue_H
-#define JsonAbstractValue_H
+#ifndef JsonBaseValue_H
+#define JsonBaseValue_H
 #include <iostream>
 #include <string>
 #include <vector>
@@ -54,7 +54,7 @@ static const EmptyValues& getEmpties()
     return e;
 }
 
-//Базовый класс иерархии возможных значений = JSON value
+//Базовый класс иерархии возможных значений ~= JSON value
 class JsonBaseValue
 {
     friend class JsonValue;
@@ -96,4 +96,4 @@ private:
 };
 
 
-#endif // JsonAbstractValue_H
+#endif // JsonBaseValue_H
