@@ -34,7 +34,7 @@ JsonValue JsonParser::parse()
 
                     map.insert({name, parse()});
 
-                    auto ch = getToken(); // one of:  , }
+                    ch = getToken(); // one of:  , }
                     if(ch=='}')
                         break;
                     if(ch!=',')
@@ -56,7 +56,7 @@ JsonValue JsonParser::parse()
                     is.unget();
                     vec.push_back(parse());
 
-                    auto ch = getToken();
+                    ch = getToken();
                     if(ch==']')
                         break;
                     if(ch!=',')
